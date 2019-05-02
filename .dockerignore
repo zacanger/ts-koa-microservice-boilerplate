@@ -1,0 +1,16 @@
+*.lock
+*.log
+*.out
+*.pid
+*.swp
+*.tar
+.DS_Store
+.git
+.gitattibutes
+.gitignore
+.idea
+.npmrc
+.vscode
+node_modules
+npm-debug.log
+/tags

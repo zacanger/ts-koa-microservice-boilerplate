@@ -1,0 +1,19 @@
+{
+  "root": true,
+  "plugins": [
+    "jane"
+  ],
+  "extends": [
+    "plugin:jane/recommended",
+    "plugin:jane/node",
+    "plugin:jane/typescript",
+    "plugin:jane/prettier-ts"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "node/no-missing-import": 0
+  }
+}

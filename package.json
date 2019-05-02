@@ -1,0 +1,62 @@
+{
+  "name": "typescript-example-microservice",
+  "description": "Example",
+  "version": "0.0.1",
+  "private": true,
+  "author": "Zac Anger <zac@zacanger.com> (https://zacanger.com)",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier \"src/**/*.ts\" --write",
+    "prebuild": "npm t",
+    "preversion": "npm t && sortpack",
+    "start": "nodemon",
+    "test": "npm run test:lint && sortpack",
+    "test:lint": "eslint -c .eslintrc.json src/*.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jane/typescript-example-microservice.git"
+  },
+  "keywords": [
+    "docker",
+    "jenkins",
+    "microservice",
+    "typescript"
+  ],
+  "dependencies": {
+    "koa": "2.7.0",
+    "koa-compress": "3.0.0",
+    "koa-router": "7.4.0"
+  },
+  "devDependencies": {
+    "@types/koa": "2.0.48",
+    "@types/koa-compress": "2.0.9",
+    "@types/koa-router": "7.0.40",
+    "eslint": "5.16.0",
+    "eslint-plugin-jane": "5.1.7",
+    "husky": "2.1.0",
+    "lint-staged": "8.1.5",
+    "nodemon": "1.19.0",
+    "npm-run-all": "4.1.5",
+    "prettier": "1.17.0",
+    "sortpack": "1.1.5",
+    "ts-node": "8.1.0",
+    "typescript": "3.4.5"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}
