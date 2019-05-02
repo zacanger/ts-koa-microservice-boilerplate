@@ -5,7 +5,7 @@
   "private": true,
   "author": "Zac Anger <zac@zacanger.com> (https://zacanger.com)",
   "license": "MIT",
-  "main": "lib/index.js",
+  "main": "index.js",
   "scripts": {
     "build": "tsc",
     "format": "prettier \"src/**/*.ts\" --write",
