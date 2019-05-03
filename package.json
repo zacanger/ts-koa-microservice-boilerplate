@@ -1,5 +1,5 @@
 {
-  "name": "typescript-example-microservice",
+  "name": "typescript-microservice-boilerpllate",
   "description": "Example",
   "version": "0.0.1",
   "private": true,
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jane/typescript-example-microservice.git"
+    "url": "https://github.com/jane/typescript-microservice-boilerplate.git"
   },
   "keywords": [
     "docker",

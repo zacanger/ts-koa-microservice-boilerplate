@@ -1,4 +1,4 @@
-# typescript-microservice-example
+# typescript-microservice-boilerplate
 
 --------
 
