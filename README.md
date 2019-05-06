@@ -1,6 +1,6 @@
 # typescript-microservice-boilerplate
 
---------
+Also see [frontend-library-boilerplate](https://github.com/jane/frontend-library-boilerplate) and [frontend-app-boilerplate](https://github.com/jane/frontend-app-boilerplate).
 
 A tiny example Node microservice, complete with Jenkinsfile and containerization.
 
