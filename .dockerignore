@@ -11,6 +11,5 @@
 .idea
 .npmrc
 .vscode
-node_modules
 npm-debug.log
 /tags
