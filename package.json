@@ -26,6 +26,7 @@
     "typescript"
   ],
   "dependencies": {
+    "boring-cluster": "5.0.4",
     "koa": "2.7.0",
     "koa-bodyparser": "4.2.1",
     "koa-compress": "3.0.0",
@@ -33,20 +34,20 @@
   },
   "devDependencies": {
     "@types/koa": "2.0.48",
-    "@types/koa-bodyparser": "4.2.2",
+    "@types/koa-bodyparser": "4.3.0",
     "@types/koa-compress": "2.0.9",
     "@types/koa-router": "7.0.40",
-    "@types/node": "12.0.2",
+    "@types/node": "12.0.4",
     "eslint": "5.16.0",
-    "eslint-plugin-jane": "5.1.10",
+    "eslint-plugin-jane": "5.1.11",
     "husky": "2.3.0",
     "lint-staged": "8.1.7",
-    "nodemon": "1.19.0",
+    "nodemon": "1.19.1",
     "npm-run-all": "4.1.5",
     "prettier": "1.17.1",
-    "sortpack": "1.1.6",
-    "ts-node": "8.1.0",
-    "typescript": "3.4.5"
+    "sortpack": "1.1.7",
+    "ts-node": "8.2.0",
+    "typescript": "3.5.1"
   },
   "engines": {
     "node": ">=10.0.0"
