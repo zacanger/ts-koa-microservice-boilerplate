@@ -1,6 +1,6 @@
 import * as http from 'http'
 import * as Koa from 'koa'
-import * as Router from 'koa-router'
+import * as Router from '@koa/router'
 import * as compress from 'koa-compress'
 import * as bodyParser from 'koa-bodyparser'
 
