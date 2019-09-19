@@ -9,11 +9,12 @@
   "scripts": {
     "build": "tsc",
     "format": "prettier \"src/**/*.ts\" --write",
-    "prebuild": "npm t",
-    "preversion": "npm t && sortpack",
+    "prebuild": "sortpack && npm t",
+    "preversion": "npm run build",
     "start": "nodemon",
-    "test": "npm run test:lint && sortpack",
-    "test:lint": "eslint -c .eslintrc.json src/*.ts"
+    "test": "run-s -s test:ts test:lint",
+    "test:lint": "eslint -c .eslintrc.json src/*.ts",
+    "test:ts": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
@@ -27,7 +28,7 @@
   ],
   "dependencies": {
     "@koa/router": "8.0.1",
-    "boring-cluster": "6.0.0",
+    "boring-cluster": "6.0.1",
     "koa": "2.8.1",
     "koa-bodyparser": "4.2.1",
     "koa-compress": "3.0.0"
@@ -39,15 +40,15 @@
     "@types/koa-router": "7.0.42",
     "@types/koa__router": "8.0.0",
     "@types/node": "12.7.5",
-    "eslint": "6.3.0",
+    "eslint": "6.4.0",
     "eslint-plugin-jane": "7.0.0",
     "husky": "3.0.5",
     "lint-staged": "9.2.5",
     "nodemon": "1.19.2",
     "npm-run-all": "4.1.5",
     "prettier": "1.18.2",
-    "sortpack": "2.0.0",
-    "ts-node": "8.3.0",
+    "sortpack": "2.0.1",
+    "ts-node": "8.4.1",
     "typescript": "3.6.3"
   },
   "engines": {
