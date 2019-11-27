@@ -1,7 +1,7 @@
 {
   "name": "typescript-microservice-boilerplate",
   "description": "Example",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "author": "Zac Anger <zac@zacanger.com> (https://zacanger.com)",
   "license": "MIT",
