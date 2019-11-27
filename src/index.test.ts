@@ -28,6 +28,12 @@ describe('flags', () => {
     expect(res.body).toBe('foo')
   })
 
+  test('/guid', async () => {
+    const res = await request(server).get('/guid')
+    expect(res.status).toEqual(200)
+    expect(typeof res.body).toBe('string')
+  })
+
   test('/data', async () => {
     const res = await request(server)
       .post('/data')

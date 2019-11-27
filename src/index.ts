@@ -3,11 +3,17 @@ import * as Koa from 'koa'
 import * as Router from '@koa/router'
 import * as compress from 'koa-compress'
 import * as bodyParser from 'koa-bodyparser'
+import { timeBasedGuid } from './utils'
 
 const isTest = process.env.NODE_ENV === 'test'
 const port = process.env.PORT || 4000
 export const app: Koa = new Koa()
 const router = new Router()
+
+router.get('/guid', async (ctx) => {
+  ctx.type = 'application/json'
+  ctx.body = JSON.stringify(timeBasedGuid())
+})
 
 router.post('/data', async (ctx) => {
   try {
