@@ -4,8 +4,9 @@ import * as Router from '@koa/router'
 import * as compress from 'koa-compress'
 import * as bodyParser from 'koa-bodyparser'
 
+const isTest = process.env.NODE_ENV === 'test'
 const port = process.env.PORT || 4000
-const app: Koa = new Koa()
+export const app: Koa = new Koa()
 const router = new Router()
 
 router.post('/data', async (ctx) => {
@@ -63,4 +64,6 @@ const main = () => {
   })
 }
 
-main()
+if (!isTest) {
+  main()
+}
