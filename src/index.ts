@@ -1,8 +1,7 @@
 import * as http from 'http'
 import * as Koa from 'koa'
 import * as Router from '@koa/router'
-import * as compress from 'koa-compress'
-import * as bodyParser from 'koa-bodyparser'
+import * as mid from 'koa-mid'
 import { timeBasedGuid } from './utils'
 
 const isTest = process.env.NODE_ENV === 'test'
@@ -43,8 +42,7 @@ const errorHandler = async (ctx, next) => {
   }
 }
 
-app.use(compress())
-app.use(bodyParser())
+app.use(mid)
 app.use(router.routes())
 app.use(errorHandler)
 
