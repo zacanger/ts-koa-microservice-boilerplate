@@ -18,7 +18,7 @@ pipeline {
   stages {
     stage('install-test-build') {
       steps {
-        sh './scripts/install-test-build.sh'
+        sh "docker build -t example/app:$BUILD_VERSION ."
       }
     }
 
@@ -26,7 +26,8 @@ pipeline {
       steps {
         // you'll probably need to use withCredentials here and provide
         // creds for your registry in the script
-        sh "./scripts/publish-images.sh"
+        sh "docker push example/app:$BUILD_VERSION"
+        sh "docker rmi -f example/app:$BUILD_VERSION"
       }
     }
   }

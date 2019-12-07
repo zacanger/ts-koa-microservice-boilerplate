@@ -8,6 +8,10 @@ RUN mkdir -p ${appdir} && \
     apk del tzdata
 WORKDIR ${appdir}
 COPY --chown=node:node . .
+RUN npm ci && \
+    npm run build && \
+    rm -rf node_modules && \
+    npm ci --production --no-optional
 USER node
 ENV NODE_ENV=production \
     TERM=linux \
