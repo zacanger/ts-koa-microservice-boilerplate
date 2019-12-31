@@ -31,35 +31,35 @@
     "typescript"
   ],
   "dependencies": {
-    "@koa/router": "8.0.2",
+    "@koa/router": "8.0.5",
     "boring-cluster": "6.0.3",
     "dnscache": "1.0.2",
     "koa": "2.11.0",
     "koa-mid": "3.0.5"
   },
   "devDependencies": {
-    "@types/jest": "24.0.23",
+    "@types/jest": "24.0.25",
     "@types/koa": "2.11.0",
     "@types/koa-bodyparser": "4.3.0",
     "@types/koa-compress": "2.0.9",
     "@types/koa-router": "7.0.42",
     "@types/koa__router": "8.0.2",
-    "@types/node": "12.12.14",
+    "@types/node": "13.1.2",
     "@types/supertest": "2.0.8",
     "coveralls": "3.0.9",
-    "eslint": "6.7.2",
+    "eslint": "6.8.0",
     "eslint-plugin-jane": "7.0.1",
     "husky": "3.1.0",
     "jest": "24.9.0",
     "lint-staged": "9.5.0",
-    "nodemon": "2.0.1",
+    "nodemon": "2.0.2",
     "npm-run-all": "4.1.5",
     "prettier": "1.19.1",
     "sortpack": "2.0.4",
     "supertest": "4.0.2",
     "ts-jest": "24.2.0",
     "ts-node": "8.5.4",
-    "typescript": "3.7.3"
+    "typescript": "3.7.4"
   },
   "engines": {
     "node": ">=10.0.0"
