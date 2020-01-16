@@ -1,0 +1,27 @@
+version: "3"
+services:
+  node:
+    image: node:12-alpine
+    working_dir: /app
+    volumes:
+      - ./package.json:/app/package.json:cached
+      - ./node_modules:/app/node_modules:cached
+      - ./scripts:/app/scripts:cached
+      - ./src:/app/src:cached
+      - ./nodemon.json:/app/nodemon.json:cached
+      - ./tsconfig.json:/app/tsconfig.json:cached
+      - ./.eslintrc.json:/app/.eslintrc.json:cached
+      - ./.prettierrc.js:/app/.prettierrc.js:cached
+    networks:
+      - app
+    command: npm run dev
+    environment:
+      NODE_ENV: development
+      PORT: 4000
+    expose:
+      - 4000
+    ports:
+      - 4000:4000
+
+networks:
+  app:

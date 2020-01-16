@@ -10,6 +10,8 @@ Includes examples for Jenkins, CircleCI, GCP Cloudbuild, and Kubernetes.
 
 To run in dev, `npm ci && npm start`
 
+To run without docker, `npm run dev` instead
+
 To build, `npm version [major|minor|patch]`
 
 [LICENSE](./LICENSE.md)
