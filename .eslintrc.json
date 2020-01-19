@@ -1,13 +1,13 @@
 {
   "root": true,
   "plugins": [
-    "jane"
+    "zacanger"
   ],
   "extends": [
-    "plugin:jane/recommended",
-    "plugin:jane/node",
-    "plugin:jane/typescript",
-    "plugin:jane/prettier-ts"
+    "plugin:zacanger/recommended",
+    "plugin:zacanger/node",
+    "plugin:zacanger/typescript",
+    "plugin:zacanger/prettier-ts"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -15,6 +15,10 @@
     "warnOnUnsupportedTypeScriptVersion": false
   },
   "rules": {
-    "node/no-missing-import": 0
+    "node/no-missing-import": 0,
+    "fp/no-nil": 0,
+    "fp/no-unused-expression": 0,
+    "fp/no-mutation": 0,
+    "fp/no-let": 0
   }
 }
