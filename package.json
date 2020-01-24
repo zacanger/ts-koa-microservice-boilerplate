@@ -4,7 +4,7 @@
   "version": "0.3.2",
   "private": true,
   "author": "Zac Anger <zac@zacanger.com> (https://zacanger.com)",
-  "license": "MIT",
+  "license": "LGPL-3.0",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
