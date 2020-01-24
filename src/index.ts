@@ -1,6 +1,8 @@
 import * as http from 'http'
+import { resolve } from 'path'
 import * as Koa from 'koa'
 import * as Router from '@koa/router'
+import serve from 'koa-simple-static'
 import * as mid from 'koa-mid'
 import { timeBasedGuid } from './utils'
 
@@ -22,14 +24,9 @@ router.post('/data', async (ctx) => {
   }
 })
 
-router.get('/:anything', async (ctx) => {
+router.get('/params-example/:anything', async (ctx) => {
   ctx.type = 'application/json'
   ctx.body = JSON.stringify(ctx.params.anything)
-})
-
-router.get('/', async (ctx) => {
-  ctx.type = 'application/json'
-  ctx.body = { hello: 'world' }
 })
 
 const errorHandler = async (ctx, next) => {
@@ -44,6 +41,11 @@ const errorHandler = async (ctx, next) => {
 
 app.use(mid)
 app.use(router.routes())
+app.use(
+  serve({
+    dir: resolve(__dirname, '..', 'public'),
+  })
+)
 app.use(errorHandler)
 
 const handler = app.callback()

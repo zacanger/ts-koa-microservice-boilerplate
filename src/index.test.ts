@@ -16,14 +16,8 @@ describe('flags', () => {
     server.close()
   })
 
-  test('/', async () => {
-    const res = await request(server).get('/')
-    expect(res.status).toEqual(200)
-    expect(res.body.hello).toBe('world')
-  })
-
-  test('/foo', async () => {
-    const res = await request(server).get('/foo')
+  test('/params-example/foo', async () => {
+    const res = await request(server).get('/params-example/foo')
     expect(res.status).toEqual(200)
     expect(res.body).toBe('foo')
   })
