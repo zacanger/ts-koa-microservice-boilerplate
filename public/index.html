@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="Zac Anger">
+  <title>Example</title>
+</head>
+<body>
+  <h1>Hello!</h1>
+  <p>Check the network tab in your devtools to see requests from the server.</p>
+  <script type="text/javascript">
+    window.fetch('/guid')
+      .then((res) => res.json())
+      .then(console.log)
+
+      window.fetch('/data', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({ foo: 'bar' })
+      })
+  </script>
+</body>
+</html>

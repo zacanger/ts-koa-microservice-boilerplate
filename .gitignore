@@ -9,6 +9,5 @@
 .vscode
 node_modules
 npm-debug.log
-public
 tags.json
 /lib
