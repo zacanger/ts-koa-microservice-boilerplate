@@ -5,7 +5,7 @@ import { app } from './'
 // eslint-disable-next-line node/no-unpublished-import
 import * as request from 'supertest'
 
-describe('flags', () => {
+describe('example', () => {
   let server = null
 
   beforeEach(async () => {
