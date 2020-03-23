@@ -1,7 +1,7 @@
 /* eslint-env jest */
 
 import * as http from 'http'
-import { app } from './'
+import { app } from '.'
 // eslint-disable-next-line node/no-unpublished-import
 import * as request from 'supertest'
 
@@ -29,9 +29,7 @@ describe('example', () => {
   })
 
   test('/data', async () => {
-    const res = await request(server)
-      .post('/data')
-      .send({ a: 1 })
+    const res = await request(server).post('/data').send({ a: 1 })
     expect(res.status).toEqual(200)
     expect(typeof res.body).toBe('object')
     expect(res.body.a).toBe(1)
