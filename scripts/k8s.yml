@@ -1,15 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  name: app
+spec:
+  rules:
+  - host: app.com
+    http:
+      paths:
+      - backend:
+          serviceName: app
+          servicePort: 4000
+  tls:
+  - hosts:
+    - app.com
+    secretName: app-cert
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: app
-  labels:
-    com.example: app
 spec:
-  type: LoadBalancer
   ports:
-  - port: 80
+  - port: 4000
     targetPort: 4000
+    protocol: TCP
   selector:
     com.example: app
 ---
@@ -31,9 +47,29 @@ spec:
       restartPolicy: Always
       containers:
       - image: some-regeistry.com/example/app:latest
+        resources:
+          limits:
+            cpu: 2000m
+            memory: 2Gi
+          requests:
+            cpu: 1000m
+            memory: 1Gi
         name: app
         ports:
         - containerPort: 4000
         env:
           - name: NODE_ENV
             value: production
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: example
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: example
+  minReplicas: 4
+  maxReplicas: 20
+  targetCPUUtilizationPercentage: 70
