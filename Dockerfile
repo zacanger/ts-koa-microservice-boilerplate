@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM node:14-alpine
 ENV appdir /app
 # hadolint ignore=DL3018
 RUN mkdir -p ${appdir} && \
