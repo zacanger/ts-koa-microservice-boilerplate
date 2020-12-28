@@ -1,5 +1,5 @@
 {
-  "name": "ts-microservice-boilerplate",
+  "name": "ts-koa-microservice-boilerplate",
   "description": "Example",
   "version": "2.0.6",
   "private": true,
@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zacanger/ts-microservice-boilerplate.git"
+    "url": "https://github.com/zacanger/ts-koa-microservice-boilerplate.git"
   },
   "keywords": [
     "docker",
