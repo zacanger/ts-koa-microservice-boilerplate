@@ -2,12 +2,16 @@ import * as http from 'http'
 import { resolve } from 'path'
 import * as Koa from 'koa'
 import * as Router from '@koa/router'
+import * as body from 'koa-bodyparser'
+import * as lower from 'koa-lowercase'
+import cookie = require('koa-cookie') // ugh
+import * as helmet from 'koa-helmet'
 import serve from 'koa-simple-static'
-import * as mid from 'koa-mid'
 import { timeBasedGuid } from './utils'
 
 const isTest = process.env.NODE_ENV === 'test'
-const port = process.env.PORT || 4000
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+const port = process.env.PORT ?? 4000
 export const app: Koa = new Koa()
 const router = new Router()
 
@@ -29,32 +33,38 @@ router.get('/params-example/:anything', async (ctx) => {
   ctx.body = JSON.stringify(ctx.params.anything)
 })
 
-const errorHandler = async (ctx, next) => {
+const errorHandler = async (ctx: Koa.Context, next: Koa.Next): Promise<void> => {
   try {
     await next()
-  } catch (err) {
+    // TODO: is there an existing type for Koa errors?
+    // i seem to remember them just being inherited from Node http errors,
+    // but i could be wrong
+    // anyway, get rid of the 'any' here
+  } catch (err: any) {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     ctx.status = err.status || 500
     ctx.app.emit('error', err, ctx)
     ctx.body = err
   }
 }
 
-app.use(mid)
+app.use(body())
+// @ts-expect-error the types are janky
+app.use(cookie.default())
+app.use(helmet())
+app.use(lower)
 app.use(router.routes())
-app.use(
-  serve({
-    dir: resolve(__dirname, '..', 'public'),
-  })
-)
+app.use(serve({ dir: resolve(__dirname, '..', 'public') }))
 app.use(errorHandler)
 
 const handler = app.callback()
 
 const server = http.createServer((req, res) => {
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
   handler(req, res)
 })
 
-const main = () => {
+const main = (): void => {
   server.listen(port, () => {
     // eslint-disable-next-line no-console
     console.log(`example listening on ${port}`)

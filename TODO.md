@@ -1,7 +1,5 @@
-* koa-simple-static -> koajs/router
-* koa-mid -> individual middlewares
-* fix tests to work with stricter TS rules
 * rehash CI and infra stuff, it's probably outdated
+* address ts-ignores and eslint-disables
 * turn workflow back on
 * db:
   * add a db container to the docker-compose

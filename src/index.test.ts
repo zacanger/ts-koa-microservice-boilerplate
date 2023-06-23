@@ -2,18 +2,20 @@
 
 import * as http from 'http'
 import { app } from '.'
-// eslint-disable-next-line node/no-unpublished-import
 import * as request from 'supertest'
 
 describe('example', () => {
-  let server = null
+  let server: http.Server | null = null
 
-  beforeEach(async () => {
+  beforeEach(() => {
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     server = http.createServer(app.callback())
   })
 
   afterEach(() => {
-    server.close()
+    if (server !== null) {
+      server.close()
+    }
   })
 
   test('/params-example/foo', async () => {
