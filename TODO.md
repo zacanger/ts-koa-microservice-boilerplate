@@ -2,6 +2,7 @@
 * address ts-ignores and eslint-disables
 * turn workflow back on
 * db:
-  * add a db container to the docker-compose
-  * have an in-mem fallback (or file? sqlite?)
-  * add an ORM (prisma? typeorm? or something "boring" like sequelize?)
+    * add a postgres container to docker-compose
+    * use typeorm
+    * maybe work in a fallback sqlite for outside of docker
+        * can use an env var in compose and check that to decide which to use
