@@ -8,6 +8,7 @@ import cookie = require('koa-cookie') // ugh
 import * as helmet from 'koa-helmet'
 import serve from 'koa-simple-static'
 import { timeBasedGuid } from './utils'
+import logger, { log } from './logger'
 
 const isTest = process.env.NODE_ENV === 'test'
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -56,6 +57,7 @@ app.use(lower)
 app.use(router.routes())
 app.use(serve({ dir: resolve(__dirname, '..', 'public') }))
 app.use(errorHandler)
+logger(app)
 
 const handler = app.callback()
 
@@ -66,8 +68,7 @@ const server = http.createServer((req, res) => {
 
 const main = (): void => {
   server.listen(port, () => {
-    // eslint-disable-next-line no-console
-    console.log(`example listening on ${port}`)
+    log.info(`example listening on ${port}`)
   })
 
   // Docker gives containers 10 seconds to handle SIGTERM

@@ -1,3 +1,4 @@
+* test the docker build
 * rehash CI and infra stuff, it's probably outdated
 * address ts-ignores and eslint-disables
 * turn workflow back on

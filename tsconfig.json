@@ -5,6 +5,7 @@
       "esnext"
     ],
     "declaration": true,
+    "resolveJsonModule": true,
     "outDir": "./lib",
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
