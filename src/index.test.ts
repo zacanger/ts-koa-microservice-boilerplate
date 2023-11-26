@@ -1,8 +1,8 @@
 /* eslint-env jest */
 
 import * as http from 'http'
-import { app } from '.'
-import * as request from 'supertest'
+import { app } from './index'
+import request from 'supertest'
 
 describe('example', () => {
   let server: http.Server | null = null
@@ -33,7 +33,6 @@ describe('example', () => {
   test('/data', async () => {
     const res = await request(server).post('/data').send({ a: 1 })
     expect(res.status).toEqual(200)
-    expect(typeof res.body).toBe('object')
-    expect(res.body.a).toBe(1)
+    expect(res.body.ok).toBe('yup')
   })
 })

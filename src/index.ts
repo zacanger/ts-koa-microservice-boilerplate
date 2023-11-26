@@ -1,14 +1,15 @@
 import * as http from 'http'
 import { resolve } from 'path'
-import * as Koa from 'koa'
-import * as Router from '@koa/router'
-import * as body from 'koa-bodyparser'
-import * as lower from 'koa-lowercase'
+import Koa from 'koa'
+import Router from '@koa/router'
+import body from 'koa-bodyparser'
+import lower from 'koa-lowercase'
 import cookie = require('koa-cookie') // ugh
-import * as helmet from 'koa-helmet'
+import helmet from 'koa-helmet'
 import serve from 'koa-simple-static'
 import { timeBasedGuid } from './utils'
 import logger, { log } from './logger'
+import * as pg from 'pg'
 
 const isTest = process.env.NODE_ENV === 'test'
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -16,20 +17,46 @@ const port = process.env.PORT ?? 4000
 export const app: Koa = new Koa()
 const router = new Router()
 
-router.get('/guid', async (ctx) => {
+const pgUser = process.env.POSTGRES_USER ?? 'username'
+const pgPass = process.env.POSTGRES_PASSWORD ?? 'password'
+const pgHost = process.env.POSTGRES_HOST ?? 'db'
+const pgDb = process.env.POSTGRES_DB ?? 'database'
+const pgPort = parseInt(process.env.POSTGRES_PORT ?? '5432', 10)
+const fakePg = {
+  query: async (..._args: any[]): Promise<null> => null,
+  connect: async (): Promise<null> => null
+}
+
+const db = isTest
+  ? fakePg
+  : new pg.Client({
+    database: pgDb,
+    host: pgHost,
+    password: pgPass,
+    port: pgPort,
+    user: pgUser
+  })
+
+router.get('/guid', async (ctx: Koa.Context) => {
   ctx.type = 'application/json'
   ctx.body = JSON.stringify(timeBasedGuid())
 })
 
-router.post('/data', async (ctx) => {
+router.post('/data', async (ctx: Koa.Context) => {
   try {
-    ctx.body = ctx.request.body
+    await db.query(
+      'insert into boilerplate (stuff) values($1)',
+      [JSON.stringify(ctx.request.body)]
+    )
+
+    ctx.type = 'application/json'
+    ctx.body = { ok: 'yup' }
   } catch (e) {
     ctx.body = e
   }
 })
 
-router.get('/params-example/:anything', async (ctx) => {
+router.get('/params-example/:anything', async (ctx: Koa.Context) => {
   ctx.type = 'application/json'
   ctx.body = JSON.stringify(ctx.params.anything)
 })
@@ -66,7 +93,18 @@ const server = http.createServer((req, res) => {
   handler(req, res)
 })
 
+const setupDb = async (): Promise<void> => {
+  await db.connect()
+  await db.query(`
+   create table if not exists boilerplate(
+     id serial,
+     stuff jsonb
+   )
+  `)
+}
+
 const main = (): void => {
+  void setupDb()
   server.listen(port, () => {
     log.info(`example listening on ${port}`)
   })

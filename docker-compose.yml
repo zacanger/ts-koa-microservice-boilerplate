@@ -1,7 +1,7 @@
 version: "3"
 services:
   node:
-    image: node:14-alpine
+    image: node:20-alpine
     working_dir: /app
     volumes:
       - ./package.json:/app/package.json:cached
@@ -18,10 +18,32 @@ services:
     environment:
       NODE_ENV: development
       PORT: 4000
-    expose:
-      - 4000
     ports:
-      - 4000:4000
+      - "4000:4000"
+
+  db:
+    container_name: db
+    networks:
+      - app
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: database
+
+  pgweb:
+    container_name: pgweb
+    networks:
+      - app
+    image: sosedoff/pgweb
+    ports:
+      - "8081:8081"
+    environment:
+      - PGWEB_DATABASE_URL=postgres://username:password@db:5432/database?sslmode=disable
+    depends_on:
+      - db
 
 networks:
   app:

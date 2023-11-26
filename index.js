@@ -8,7 +8,7 @@ process.on('unhandledRejection', console.error)
 require('dnscache')({
   enable: true,
   ttl: 300,
-  cachesize: 1000,
+  cachesize: 1000
 })
 
 require('boring-cluster')('lib')

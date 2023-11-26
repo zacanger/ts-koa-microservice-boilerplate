@@ -2,15 +2,15 @@ import * as crypto from 'crypto'
 import * as Koa from 'koa'
 import * as ip from 'ip'
 import * as winston from 'winston'
-import * as koaLogger from 'koa-logger'
+import koaLogger from 'koa-logger'
+// @ts-expect-error no types
 import { logger as koaWinston } from 'koa2-winston'
-import * as pkg from '../package.json'
 
+// provide from env or pkg or whatever
+const appName = 'app'
+const version = '0.0.1'
 const isProd = process.env.NODE_ENV === 'production'
 
-// Provide these from config or env vars or package.json or whatever
-const version = pkg.version
-const appName = pkg.name
 // usually 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace'
 // though it could depend on implementation
 const logLevel = process.env.LOG_LEVEL ?? 'info'
@@ -30,13 +30,14 @@ const setReqId = async (ctx: Koa.Context, next: Koa.Next): Promise<void> => {
 export const log = winston.createLogger({
   level: logLevel,
   format: winston.format.combine(
-    winston.format((info) => {
+    winston.format((info: any) => {
+      // provide from env, pkg, or whatever
       info.version = version
       info.app = appName
       return info
     })(),
 
-    winston.format((info) => {
+    winston.format((info: any) => {
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       if (info?.req?.header?.authorization) {
         info.req.header.authorization = 'REDACTED'

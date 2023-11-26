@@ -2,13 +2,10 @@
 
 [![Support with PayPal](https://img.shields.io/badge/paypal-donate-yellow.png)](https://paypal.me/zacanger) [![Patreon](https://img.shields.io/badge/patreon-donate-yellow.svg)](https://www.patreon.com/zacanger) [![ko-fi](https://img.shields.io/badge/donate-KoFi-yellow.svg)](https://ko-fi.com/U7U2110VB)
 
-An example Node microservice using Koa, TypeScript, and Jest.
+An example Node microservice using Koa, TypeScript, Jest, and Postgres.
 
-Includes examples for Jenkins, CircleCI, GCP Cloudbuild, and Kubernetes.
-
-Also includes an example of static file serving. I recommend serving files in
-production out of a CDN rather than from a Node server, or using Node only to
-handle requests for those files.
+Includes PGWeb for viewing your database, example Jenkinsfile and K8S
+manifests, and static file server (use object storage in prod!).
 
 To run in dev, `npm ci && npm start`
 

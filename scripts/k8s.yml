@@ -60,6 +60,16 @@ spec:
         env:
           - name: NODE_ENV
             value: production
+          - name: POSTGRES_USER
+            value: good_username
+          - name: POSTGRES_PASSWORD
+            value: good_password
+          - name: POSTGRES_PORT
+            value: 5432
+          - name: POSTGRES_HOST
+            value: good_host
+          - name: POSTGRES_DB
+            value: good_db
 ---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
