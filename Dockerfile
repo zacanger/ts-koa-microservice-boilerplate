@@ -1,11 +1,11 @@
-FROM node:20-alpine as build
+FROM node:21-alpine as build
 WORKDIR /app
 COPY --chown=node:node . .
 RUN npm i && \
     npm run build && \
     rm -rf node_modules && \
     npm ci --production --no-optional
-FROM node:20-alpine as run
+FROM node:21-alpine as run
 USER node
 WORKDIR /
 COPY --from=build /app .

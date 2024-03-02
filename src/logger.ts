@@ -1,6 +1,5 @@
-import * as crypto from 'crypto'
+import * as crypto from 'node:crypto'
 import * as Koa from 'koa'
-import * as ip from 'ip'
 import * as winston from 'winston'
 import koaLogger from 'koa-logger'
 // @ts-expect-error no types
@@ -16,9 +15,8 @@ const isProd = process.env.NODE_ENV === 'production'
 const logLevel = process.env.LOG_LEVEL ?? 'info'
 
 const setReqId = async (ctx: Koa.Context, next: Koa.Next): Promise<void> => {
-  const localIp = ip.toBuffer(ip.address()).toString('hex')
   const semiRandomString = crypto.randomBytes(8).toString('hex')
-  const reqId = `${semiRandomString}-${localIp}-${appName}`
+  const reqId = `${semiRandomString}-${appName}-${version}`
   // @ts-expect-error
   ctx.request.reqId = reqId
   ctx.response.set('x-trace-id', reqId)
@@ -38,8 +36,7 @@ export const log = winston.createLogger({
     })(),
 
     winston.format((info: any) => {
-      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-      if (info?.req?.header?.authorization) {
+      if (typeof info?.req?.header?.authorization === 'string') {
         info.req.header.authorization = 'REDACTED'
       }
       return info

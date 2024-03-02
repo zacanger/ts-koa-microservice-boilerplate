@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const request = require('http').request(
+const request = require('node:http').request(
   {
     host: 'localhost',
     port: process.env.PORT || 3000,

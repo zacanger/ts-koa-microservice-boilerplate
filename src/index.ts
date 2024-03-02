@@ -1,5 +1,6 @@
-import * as http from 'http'
-import { resolve } from 'path'
+import * as http from 'node:http'
+import { resolve } from 'node:path'
+import cluster from 'node:cluster'
 import Koa from 'koa'
 import Router from '@koa/router'
 import body from 'koa-bodyparser'
@@ -12,7 +13,6 @@ import logger, { log } from './logger'
 import * as pg from 'pg'
 
 const isTest = process.env.NODE_ENV === 'test'
-// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
 const port = process.env.PORT ?? 4000
 export const app: Koa = new Koa()
 const router = new Router()
@@ -64,13 +64,8 @@ router.get('/params-example/:anything', async (ctx: Koa.Context) => {
 const errorHandler = async (ctx: Koa.Context, next: Koa.Next): Promise<void> => {
   try {
     await next()
-    // TODO: is there an existing type for Koa errors?
-    // i seem to remember them just being inherited from Node http errors,
-    // but i could be wrong
-    // anyway, get rid of the 'any' here
   } catch (err: any) {
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    ctx.status = err.status || 500
+    ctx.status = err.status ?? 500
     ctx.app.emit('error', err, ctx)
     ctx.body = err
   }
@@ -89,8 +84,7 @@ logger(app)
 const handler = app.callback()
 
 const server = http.createServer((req, res) => {
-  // eslint-disable-next-line @typescript-eslint/no-floating-promises
-  handler(req, res)
+  void handler(req, res)
 })
 
 const setupDb = async (): Promise<void> => {
@@ -106,12 +100,9 @@ const setupDb = async (): Promise<void> => {
 const main = (): void => {
   void setupDb()
   server.listen(port, () => {
-    log.info(`example listening on ${port}`)
+    log.info(`example ${cluster?.worker?.id ?? 0} listening on ${port}`)
   })
 
-  // Docker gives containers 10 seconds to handle SIGTERM
-  // before sending SIGKILL. Close all current connections
-  // graceully and exit with 0.
   process.on('SIGTERM', () => {
     server.close(() => {
       process.exit(0)

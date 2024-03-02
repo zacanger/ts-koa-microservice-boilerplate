@@ -46,7 +46,7 @@ spec:
     spec:
       restartPolicy: Always
       containers:
-      - image: some-regeistry.com/example/app:latest
+      - image: some-regeistry.com/example/app:$TAG
         resources:
           limits:
             cpu: 2000m
